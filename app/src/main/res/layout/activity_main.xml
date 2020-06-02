@@ -22,11 +22,13 @@
                     android:layout_width="0dp"
                     android:layout_weight=".70"
                     android:layout_height="match_parent"
+                    android:id="@+id/search_query"
                     android:hint="Enter Book Name"/>
                 <Button
                     android:layout_weight=".30"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:id="@+id/search_button"
                     android:text="Search"/>
             </LinearLayout>
             <TextView
