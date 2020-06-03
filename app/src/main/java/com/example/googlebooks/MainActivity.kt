@@ -4,8 +4,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.ListView
+import android.widget.Toast
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var searchButton : Button
     lateinit var searchQuery : EditText
 //    lateinit var textView : TextView
-    lateinit var listView_details: ListView
+    lateinit var listView: ListView
     var bookList:ArrayList<Model> = ArrayList();
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +35,12 @@ class MainActivity : AppCompatActivity() {
             query = getQuery()
             searchRequest(query, queue)
         }
-        listView_details = findViewById<ListView>(R.id.listView) as ListView
+        listView = findViewById<ListView>(R.id.listView) as ListView
+
+        listView.setOnItemClickListener { parent, view, position, id ->
+            Toast.makeText(this@MainActivity, "item clicked "+position.toString(), Toast.LENGTH_SHORT).show()
+            showBook(bookList.get(position), queue)
+        }
     }
 
     fun searchRequest(query : String, queue : RequestQueue) {
@@ -102,7 +107,32 @@ class MainActivity : AppCompatActivity() {
             //stuff that updates ui
             val obj_adapter : CustomAdapter
             obj_adapter = CustomAdapter(applicationContext,bookList)
-            listView_details.adapter=obj_adapter
+            listView.adapter=obj_adapter
         }
+    }
+
+    fun bookRequest(id:String, queue:RequestQueue):JSONObject?{
+        val url = "https://www.googleapis.com/books/v1/volumes/" + id
+        var base:JSONObject? = null
+        val stringRequest = object:StringRequest(Request.Method.GET, url,
+            Response.Listener<String> { response ->
+                base = JSONObject(response)
+                Toast.makeText(this@MainActivity, "done", Toast.LENGTH_SHORT).show()
+            },
+            Response.ErrorListener {
+                Toast.makeText(this@MainActivity, "error", Toast.LENGTH_SHORT).show()
+            }){
+            override fun getHeaders(): MutableMap<String, String> {
+                val headers=HashMap<String,String>()
+                headers["Content-type"]="application/json"
+                return headers
+            }
+        }
+        queue.add(stringRequest)
+        return base
+    }
+
+    fun showBook(model:Model, queue:RequestQueue){
+        var book:JSONObject?=bookRequest(model.id, queue)
     }
 }
