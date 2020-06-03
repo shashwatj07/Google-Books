@@ -1,5 +1,6 @@
 package com.example.googlebooks
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -39,7 +40,7 @@ class MainActivity : AppCompatActivity() {
 
         listView.setOnItemClickListener { parent, view, position, id ->
             Toast.makeText(this@MainActivity, "item clicked "+position.toString(), Toast.LENGTH_SHORT).show()
-            showBook(bookList.get(position), queue)
+            bookRequest(bookList.get(position).id, queue)
         }
     }
 
@@ -71,7 +72,6 @@ class MainActivity : AppCompatActivity() {
 
     fun setModels(items:JSONArray) {
         bookList=ArrayList()
-        var i:Int=0
         for(i in 0..(items.length()-1)){
             var obj : JSONObject = items.get(i) as JSONObject
             var model:Model=Model()
@@ -111,13 +111,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun bookRequest(id:String, queue:RequestQueue):JSONObject?{
+    fun bookRequest(id:String, queue:RequestQueue){
         val url = "https://www.googleapis.com/books/v1/volumes/" + id
-        var base:JSONObject? = null
         val stringRequest = object:StringRequest(Request.Method.GET, url,
             Response.Listener<String> { response ->
-                base = JSONObject(response)
-                Toast.makeText(this@MainActivity, "done", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this@MainActivity, BookActivity::class.java)
+                intent.putExtra("JSONString", response)
+                startActivity(intent)
             },
             Response.ErrorListener {
                 Toast.makeText(this@MainActivity, "error", Toast.LENGTH_SHORT).show()
@@ -129,10 +129,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
         queue.add(stringRequest)
-        return base
-    }
-
-    fun showBook(model:Model, queue:RequestQueue){
-        var book:JSONObject?=bookRequest(model.id, queue)
     }
 }
