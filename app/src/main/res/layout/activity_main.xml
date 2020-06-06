@@ -24,17 +24,27 @@
                     android:layout_height="match_parent"
                     android:id="@+id/search_query"
                     android:hint="Enter Book Name"/>
-                <Button
-                    android:layout_weight=".30"
-                    android:layout_width="0dp"
+
+
+                <ImageButton
+
+                    android:layout_width="100dp"
                     android:layout_height="match_parent"
                     android:id="@+id/search_button"
-                    android:text="Search"/>
+
+                    android:src="@drawable/ic_action_search"
+                    android:background="@color/colorPrimary"
+
+                    />
+
+
+
             </LinearLayout>
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="1000dp"
-                android:id="@+id/listView">
+                android:id="@+id/listView"
+                android:transcriptMode="alwaysScroll">
             </ListView>
 
         </LinearLayout>

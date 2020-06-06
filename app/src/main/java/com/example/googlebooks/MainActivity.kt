@@ -1,12 +1,12 @@
 package com.example.googlebooks
 
+import android.app.AlertDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ListView
-import android.widget.Toast
+import android.provider.Settings
+import android.widget.*
+import androidx.core.app.ActivityCompat
 import com.android.volley.Request
 import com.android.volley.RequestQueue
 import com.android.volley.Response
@@ -18,29 +18,56 @@ import org.json.JSONException
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var searchButton : Button
+    lateinit var searchButton : ImageButton
     lateinit var searchQuery : EditText
-//    lateinit var textView : TextView
     lateinit var listView: ListView
     var bookList:ArrayList<Model> = ArrayList();
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-//        textView = findViewById(R.id.a)
         searchQuery = findViewById(R.id.search_query)
         searchButton = findViewById(R.id.search_button)
-        var query : String = ""
-        val queue = Volley.newRequestQueue(this)
-        searchButton.setOnClickListener{
-            query = getQuery()
-            searchRequest(query, queue)
-        }
-        listView = findViewById<ListView>(R.id.listView) as ListView
+        if (ConnectivityManager().checkConnectivity(this)) {
+            var query: String = ""
+            val queue = Volley.newRequestQueue(this)
+            searchButton.setOnClickListener {
+                query = getQuery()
+                searchRequest(query, queue)
+            }
+            listView = findViewById<ListView>(R.id.listView) as ListView
 
-        listView.setOnItemClickListener { parent, view, position, id ->
-            Toast.makeText(this@MainActivity, "item clicked "+position.toString(), Toast.LENGTH_SHORT).show()
-            bookRequest(bookList.get(position).id, queue)
+            listView.setOnItemClickListener { parent, view, position, id ->
+                Toast.makeText(
+                    this@MainActivity,
+                    "item clicked " + position.toString(),
+                    Toast.LENGTH_SHORT
+                ).show()
+                bookRequest(bookList.get(position).id, queue)
+            }
+        }
+        else
+        {
+            val dialog = AlertDialog.Builder(this)
+            dialog.setTitle("Error")
+            dialog.setMessage("Internet Connection is not Found")
+            dialog.setPositiveButton("Open Settings") { text, listener ->
+
+                val settingsIntent= Intent(Settings.ACTION_WIRELESS_SETTINGS)
+                startActivity(settingsIntent)
+                this@MainActivity.finish()
+
+
+            }
+
+            dialog.setNegativeButton("Exit") { text, listener ->
+
+                ActivityCompat.finishAffinity(this)
+
+
+            }
+            dialog.create()
+            dialog.show()
         }
     }
 

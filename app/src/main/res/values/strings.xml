@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Google Books</string>
+    <string name="details">Details:</string>
 </resources>

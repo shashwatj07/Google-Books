@@ -4,14 +4,13 @@
     android:layout_height="wrap_content"
     android:id="@+id/listItem"
     android:padding="5dp"
-    android:orientation="horizontal">
-
+    android:orientation="horizontal"
+    android:background="#B2DFDB">
     <ImageView
         android:layout_width="80dp"
-        android:layout_height="120dp"
+        android:layout_height="100dp"
         android:src="@drawable/books"
         android:id="@+id/thumbnail"/>
-
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -20,16 +19,18 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/title"/>
+            android:id="@+id/title"
+            android:textStyle="bold"
+            android:textColor="@color/black"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/subtitle"/>
+            android:id="@+id/subtitle"
+            android:textColor="@color/black"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/authors"/>
+            android:id="@+id/authors"
+            android:textColor="@color/black"/>
     </LinearLayout>
-
-
 </LinearLayout>
