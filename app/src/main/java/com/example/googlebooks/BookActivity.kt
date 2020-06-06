@@ -8,7 +8,6 @@ import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 
-
 class BookActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +43,7 @@ class BookActivity : AppCompatActivity() {
         }
         try {
             description.text= Html.fromHtml(volumeInfo.getString("description"))
+//            description.justificationMode = JUSTIFICATION_MODE_INTER_WORD
         }
         catch (e:JSONException){
         }
