@@ -36,22 +36,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="18sp"
-                android:textColor="@color/black"
+                android:textColor="#1B5E20"
                 android:paddingTop="10dp"
                 android:text="Description:"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/description"
-                android:paddingBottom="10dp"/>
+                android:paddingBottom="10dp"
+                android:textColor="#757575" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/details"
                 android:text="@string/details"
                 android:textSize="20sp"
-                android:textColor="@color/black"
-                android:textStyle="bold"/>
+                android:textColor="#1B5E20" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
