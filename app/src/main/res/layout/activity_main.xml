@@ -18,13 +18,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="5dp">
-                <EditText
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textField"
                     android:layout_width="0dp"
                     android:layout_weight=".70"
-                    android:layout_height="match_parent"
-                    android:id="@+id/search_query"
-                    android:hint="Enter Book Name"/>
+                    android:hint="Enter Book Name"
+                    android:layout_height="match_parent">
 
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/search_query" />
+
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <ImageButton
 
