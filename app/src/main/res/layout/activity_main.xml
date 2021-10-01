@@ -51,7 +51,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="1000dp"
                 android:id="@+id/listView"
-                android:transcriptMode="alwaysScroll">
+                android:transcriptMode="alwaysScroll"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
             </ListView>
 
         </LinearLayout>

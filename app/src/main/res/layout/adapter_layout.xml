@@ -5,7 +5,9 @@
     android:id="@+id/listItem"
     android:padding="5dp"
     android:orientation="horizontal"
-    android:background="#B2DFDB">
+    android:background="#BBDEFB"
+    android:layout_marginTop="10dp"
+    android:layout_marginBottom="10dp">
     <ImageView
         android:layout_width="80dp"
         android:layout_height="100dp"
